@@ -1,4 +1,15 @@
-
+/*
+1️⃣ Graph Representation: Use a map (adjacency list) to store connections between nodes.
+2️⃣ Tracking Bob's Path to Node 0: Perform DFS from Bob’s starting position towards node 0. Store the time when Bob reaches each node in a bobMap.
+3️⃣ Tracking Alice’s Path for Maximum Profit: Perform DFS for Alice, moving towards leaf nodes while considering constraints.
+For each node Alice visits: 
+> If Bob reaches the node before Alice, the reward is 0. 
+> If Bob and Alice reach at the same time, take half the reward.
+> Otherwise, take the full reward.
+Maintain Alice’s total earnings and update the max profit.
+4️⃣ Final Computation:
+The maximum value obtained from Alice’s DFS traversal is the answer.
+*/
 
 class Solution {
     int aliceIncome;
