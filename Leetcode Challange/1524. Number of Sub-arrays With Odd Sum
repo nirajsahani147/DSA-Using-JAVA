@@ -1,0 +1,23 @@
+// https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum/description/?envType=daily-question&envId=2025-02-25
+class Solution {
+    public int numOfSubarrays(int[] arr) {
+        int n=arr.length;
+        int ans=0;
+        int mod=1000000007;
+        int sum=0,odd=0,even=1; //even is one for hadling count of odd element
+        for(int i=0;i<n;i++){
+            sum+=arr[i];
+            if(sum%2==0){
+                //even arr[i] found see the previous odd
+                ans=(ans+odd)%mod;
+                even++;
+            }
+            else{
+                //odd arr[i] found odd+even=odd and increase odd
+                ans=(ans+even)%mod;
+                odd++;
+            }
+        }  
+        return ans; 
+    }
+}
