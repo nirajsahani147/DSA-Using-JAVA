@@ -1,0 +1,82 @@
+//26-02-2025
+
+//{ Driver Code Starts
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+        while (t-- > 0) {
+            String line = sc.nextLine();
+            String[] input = line.split(" ");
+            int[] arr = Arrays.stream(input).mapToInt(Integer::parseInt).toArray();
+            Solution solution = new Solution();
+            ArrayList<Integer> result = solution.maxOfMins(arr);
+            for (int val : result) {
+                System.out.print(val + " ");
+            }
+            System.out.println();
+            System.out.println("~");
+        }
+        sc.close();
+    }
+}
+// } Driver Code Ends
+
+
+
+class Solution {
+    public ArrayList<Integer> maxOfMins(int[] arr) {
+        // Your code here
+        Stack<Integer>st=new Stack<>();
+        int n=arr.length;
+        ArrayList<Integer>ans=new ArrayList<>(n);
+        int list[]=new int[n];
+        
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && arr[st.peek()]>arr[i]){
+                int ind=st.pop();
+                
+                //stack will contains left smallest value's index
+                
+                if(st.isEmpty()){
+                    int range =i;
+                    list[range-1]=Math.max(list[range-1],arr[ind]);
+                }
+                else {
+                    int range=i-st.peek()-1;
+                   list[range-1]=Math.max(list[range-1],arr[ind]);
+                }
+            }
+            st.push(i);
+        }
+        
+         while(!st.isEmpty()){
+                int ind=st.pop();
+                
+                //stack will contains left smallest value's index
+                
+                if(st.isEmpty()){
+                    int range =n;
+                    list[range-1]=Math.max(list[range-1],arr[ind]);
+                }
+                else {
+                    int range=n-st.peek()-1;
+                   list[range-1]=Math.max(list[range-1],arr[ind]);
+                }
+            }
+            
+            for(int i=n-2;i>=0;i--){
+                list[i]=Math.max(list[i],list[i+1]);
+               // System.out.print(list[i]);
+            }
+            
+            for(int val:list){
+                ans.add(val);
+            }
+            return ans;
+    }
+}
